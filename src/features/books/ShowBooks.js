@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteBook } from './BookSlice';
+import { Link } from 'react-router-dom';
 
 const ShowBooks = () => {
   const books = useSelector((state)=>state.booksReducer.books);
@@ -24,12 +25,15 @@ const ShowBooks = () => {
         <tbody>
           {
             books && books.map((book)=>{
+              const {id,title,author}=book;
               return <tr key={book.id}>
                 <td>{book.id}</td>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
                 <td>
-                  <button>Edit</button>
+                  <Link to="/edit-book" state={{ id,title,author }}>
+                       <button>Edit</button>
+                  </Link>
                   <button onClick={()=>{handleDeleteBook(book.id)}}>Delete</button>
                 </td>
               </tr>
